@@ -15,21 +15,33 @@ def shut_app_down():
     os.system('cls')
     print('Shutting app down')
 
+def invalid_option():
+    print('Invalid option\n')
+    input('Type any character to return to main menu')
+    main()
+
 def pick_options():
     
-    option_chosen = int(input('Pick an option: '))
-
-    if option_chosen == 1:
-        print('Create new restaurant')
-    elif option_chosen == 2:
-        print('List restaurants')
-    elif option_chosen == 3:
-        print('Activate')
-    else:
-        shut_app_down()
+    try:
     
+        option_chosen = int(input('Pick an option: '))
+
+        if option_chosen == 1:
+            print('Create new restaurant')
+        elif option_chosen == 2:
+            print('List restaurants')
+        elif option_chosen == 3:
+            print('Activate')
+        elif option_chosen == 4:
+            shut_app_down()
+        else:
+            invalid_option()
+            
+    except:
+        invalid_option()
 
 def main():
+    os.system('cls')
     show_app_name() 
     show_options()
     pick_options()
