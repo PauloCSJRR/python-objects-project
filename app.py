@@ -1,5 +1,16 @@
 import os
 
+restaurants = [{'nome':'Praça', 'ativo':False},
+               {'nome':'Pizza Suprema', 'ativo':True}]
+
+def show_subtitles(text):
+    os.system('cls')
+    print(text)
+
+def back_to_main_menu():
+    input('\nType any character to return to main menu ')
+    main()
+
 def show_app_name():
     print("""
       Eat good restaurant
@@ -12,13 +23,29 @@ def show_options():
     print('4. Exit\n')
 
 def shut_app_down():
-    os.system('cls')
-    print('Shutting app down')
+    show_subtitles('Shutting app down')
 
 def invalid_option():
     print('Invalid option\n')
-    input('Type any character to return to main menu')
-    main()
+    back_to_main_menu()
+
+def create_new_restaurant():
+    show_subtitles('Create new restaurant')
+    restaurant_name = input("What's the name of the restaurant? ")
+    restaurants.append(restaurant_name)
+    print(f'The restaurant {restaurant_name} has been created successfully!\n')
+    back_to_main_menu()
+
+def list_restaurants():
+    show_subtitles('Listing all restaurants')
+    
+    for restaurant in restaurants:
+        restaurant_name = restaurant['nome']
+        status = restaurant['ativo']
+        print(f'Restaurant: {restaurant_name}, status: {status}')  
+        
+    back_to_main_menu()
+    
 
 def pick_options():
     
@@ -27,9 +54,9 @@ def pick_options():
         option_chosen = int(input('Pick an option: '))
 
         if option_chosen == 1:
-            print('Create new restaurant')
+            create_new_restaurant()
         elif option_chosen == 2:
-            print('List restaurants')
+            list_restaurants()
         elif option_chosen == 3:
             print('Activate')
         elif option_chosen == 4:
