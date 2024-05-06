@@ -1,7 +1,7 @@
 import os
 
-restaurants = [{'nome':'Praça', 'ativo':False},
-               {'nome':'Pizza Suprema', 'ativo':True}]
+restaurants = [{'name':'Praça', 'category':'Sushi','active':False},
+               {'name':'Pizza Suprema', 'category':'Pizza','active':True}]
 
 def show_subtitles(text):
     os.system('cls')
@@ -32,7 +32,12 @@ def invalid_option():
 def create_new_restaurant():
     show_subtitles('Create new restaurant')
     restaurant_name = input("What's the name of the restaurant? ")
-    restaurants.append(restaurant_name)
+    category = input(f'Type the category of the restaruant {restaurant_name}: ')
+    resturant_data = {'name': restaurant_name,
+                      'category':category,
+                      'active':False}
+    
+    restaurants.append(resturant_data)
     print(f'The restaurant {restaurant_name} has been created successfully!\n')
     back_to_main_menu()
 
@@ -40,10 +45,27 @@ def list_restaurants():
     show_subtitles('Listing all restaurants')
     
     for restaurant in restaurants:
-        restaurant_name = restaurant['nome']
-        status = restaurant['ativo']
-        print(f'Restaurant: {restaurant_name}, status: {status}')  
+        restaurant_name = restaurant['name']
+        category = restaurant['category']
+        status = restaurant['active']
+        print(f'{restaurant_name} | {category} | {status}')  
         
+    back_to_main_menu()
+    
+def status_update():
+    show_subtitles('Update restaurant status')
+    name_restaurant = input('Type the name of the restaurant you wish to update status: ')
+    found_restaurant = False
+    
+    for restaurant in restaurants:
+        if name_restaurant == restaurant['name']:
+            found_restaurant = True
+            restaurant['active'] = not restaurant['active']
+            msg = f'Restaurant {name_restaurant} sucessfully activated' if restaurant['active'] else f'Restaurant {name_restaurant} deactivated sucessfully'
+            print(msg)
+    if not found_restaurant:
+        print('Restaurant not found')
+    
     back_to_main_menu()
     
 
@@ -58,7 +80,7 @@ def pick_options():
         elif option_chosen == 2:
             list_restaurants()
         elif option_chosen == 3:
-            print('Activate')
+            status_update()
         elif option_chosen == 4:
             shut_app_down()
         else:
@@ -72,7 +94,6 @@ def main():
     show_app_name() 
     show_options()
     pick_options()
-    
     
 if __name__ == '__main__':
     main()
